@@ -1332,98 +1332,104 @@
     }
 
     @media (max-width: 400px) {
-      body { padding-top: 100px; }
+      /* Extra small mobile - maintain mobile layout */
+      body { padding-top: 75px; }
       
-      .container { padding: 0 30px; max-width: 1300px; margin: 0 auto; }
+      .container { padding: 0 12px; }
       
-      .navbar { padding: 14px 0; flex-wrap: nowrap; justify-content: space-between; }
-      .logo { gap: 10px; }
-      .logo-text h1 { font-size: 1.9rem; }
-      .logo-text span { font-size: 0.8rem; letter-spacing: 3px; }
-      .log { width: 60px; height: 60px; }
-      .nav-cta { padding: 10px 28px; font-size: 0.95rem; }
-      .nav-cta span { display: inline; }
-      .nav-cta::before { display: none; }
-      .menu-toggle { display: none; }
+      .navbar { padding: 8px 0; }
+      .logo { gap: 6px; }
+      .logo-text h1 { font-size: 1.1rem; }
+      .logo-text span { font-size: 0.55rem; letter-spacing: 0.5px; }
+      .log { width: 38px; height: 38px; }
+      .nav-cta { padding: 5px 10px; font-size: 0.7rem; }
+      .nav-cta span { display: none; }
+      .nav-cta::before { content: '\f2b5'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 0.9rem; display: block; }
+      .menu-toggle { font-size: 1.3rem; padding: 3px 10px; }
       
-      .hero { flex-direction: row; padding: 60px 0 80px; gap: 40px; }
-      .hero-left { flex: 1.1; min-width: 320px; }
-      .hero-left .pre-title { font-size: 0.9rem; letter-spacing: 6px; }
-      .hero-left h2 { font-size: 3.7rem; }
-      .hero-left p { font-size: 1.2rem; margin-bottom: 40px; }
-      .hero-buttons { flex-wrap: wrap; gap: 20px; }
-      .btn-primary, .btn-outline { width: auto; padding: 16px 44px; font-size: 1.1rem; }
-      .hero-right { flex: 0.9; min-width: 280px; padding: 30px 20px; }
-      .gold-badge i { font-size: 6rem; }
-      .gold-badge h3 { font-size: 2.5rem; }
+      .mobile-nav a { font-size: 1.6rem; }
+      .close-menu { font-size: 2.5rem; top: 15px; right: 20px; }
       
-      .trust-bar { flex-wrap: wrap; justify-content: space-between; padding: 30px 0; gap: 20px 40px; }
-      .trust-item { min-width: auto; font-size: 1.1rem; }
-      .trust-item i { font-size: 1.5rem; }
+      .hero { padding: 20px 0 35px; }
+      .hero-left .pre-title { font-size: 0.65rem; letter-spacing: 2px; margin-bottom: 10px; }
+      .hero-left h2 { font-size: 1.6rem; }
+      .hero-left p { font-size: 0.9rem; margin-bottom: 20px; }
+      .hero-buttons { gap: 10px; }
+      .btn-primary, .btn-outline { padding: 12px 20px; font-size: 0.85rem; }
+      .hero-right { max-width: 220px; padding: 12px; }
+      .gold-badge i { font-size: 2.8rem; }
+      .gold-badge h3 { font-size: 1.4rem; }
+      .gold-badge p { font-size: 0.7rem; }
       
-      .section-header { margin: 80px 0 50px; }
-      .section-header h4 { font-size: 1rem; letter-spacing: 5px; }
-      .section-header h2 { font-size: 2.8rem; }
+      .trust-bar { margin: 25px 0; padding: 15px 0; gap: 12px; }
+      .trust-item { font-size: 0.8rem; gap: 8px; }
+      .trust-item i { font-size: 1rem; }
       
-      .about-block { flex-direction: row; gap: 50px; padding: 60px 50px; margin: 100px 0; border-radius: 60px; }
-      .about-text { flex: 1.2; width: auto; }
-      .about-text h5 { font-size: 1rem; letter-spacing: 5px; margin-bottom: 20px; }
-      .about-text h3 { font-size: 2.5rem; margin-bottom: 30px; }
-      .about-text p { font-size: 1.2rem; margin-bottom: 30px; }
-      .about-stats { gap: 40px; }
-      .stat { min-width: auto; text-align: left; }
-      .stat .number { font-size: 2.6rem; }
-      .stat .label { font-size: 0.9rem; }
-      .about-image { flex: 0.8; width: auto; min-height: 280px; border-radius: 40px; padding: 40px 20px; }
-      .about-image i { font-size: 8rem; }
+      .section-header { margin: 40px 0 25px; }
+      .section-header h4 { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; }
+      .section-header h2 { font-size: 1.3rem; }
       
-      .mining-slider { min-height: 480px; margin: 40px 0 60px; }
-      .mining-card { width: 320px; padding: 35px 25px; border-radius: 32px; }
-      .mining-card.prev { transform: scale(0.9) translateX(-180px); }
-      .mining-card.next { transform: scale(0.9) translateX(180px); }
-      .mining-card h3 { font-size: 1.8rem; }
-      .mining-card p { font-size: 1rem; margin-bottom: 25px; }
-      .mining-icon { font-size: 3rem; }
+      .about-block { margin: 30px 0; padding: 20px 15px; border-radius: 25px; gap: 20px; }
+      .about-text h5 { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 12px; }
+      .about-text h3 { font-size: 1.25rem; margin-bottom: 15px; }
+      .about-text p { font-size: 0.85rem; margin-bottom: 15px; }
+      .about-stats { gap: 15px; }
+      .stat { min-width: 60px; }
+      .stat .number { font-size: 1.2rem; }
+      .stat .label { font-size: 0.6rem; }
+      .about-image { min-height: 150px; border-radius: 18px; padding: 15px 10px; }
+      .about-image i { font-size: 4rem; }
       
-      #mining, #insights { border-radius: 60px; margin: 40px 0; padding: 60px 0; }
+      .mining-slider { min-height: 300px; margin: 25px 0 35px; }
+      .mining-card { width: 180px; padding: 18px 12px; border-radius: 20px; }
+      .mining-card.prev { transform: scale(0.7) translateX(-50px); }
+      .mining-card.next { transform: scale(0.7) translateX(50px); }
+      .mining-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+      .mining-card p { font-size: 0.75rem; margin-bottom: 12px; }
+      .mining-icon { font-size: 1.6rem; margin-bottom: 10px; }
+      .slider-dots { margin: 12px 0 25px; gap: 8px; }
+      .dot { width: 10px; height: 10px; }
       
-      .insight-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin: 50px 0; }
-      .insight-card { padding: 40px 25px; border-radius: 32px; }
-      .insight-icon { font-size: 2.8rem; margin-bottom: 25px; }
-      .insight-card h3 { font-size: 1.8rem; margin-bottom: 15px; }
-      .insight-card p { font-size: 1rem; margin-bottom: 25px; }
+      #mining, #insights { border-radius: 20px; margin: 20px 0; padding: 25px 10px; }
       
-      .contact-premium { padding: 70px 50px; margin: 80px 0; border-radius: 70px; }
-      .contact-flex { flex-direction: row; gap: 40px; }
-      .contact-info, .contact-form { flex: 1; width: auto; }
-      .contact-info h3 { font-size: 2rem; text-align: left; }
-      .contact-detail { justify-content: flex-start; margin: 25px 0; gap: 15px; }
-      .contact-detail i { font-size: 1.8rem; width: 40px; }
-      .contact-detail span { font-size: 1rem; }
-      .contact-form { padding: 40px; border-radius: 50px; }
-      .input-group { margin-bottom: 20px; }
-      .input-group label { font-size: 0.9rem; margin-bottom: 8px; }
-      .input-group input, .input-group textarea { padding: 16px 20px; font-size: 1rem; border-radius: 30px; }
-      .input-group textarea { min-height: 100px; }
-      .submit-btn { padding: 18px 30px; font-size: 1.2rem; border-radius: 50px; }
+      .insight-grid { gap: 12px; margin: 20px 10px; }
+      .insight-card { padding: 18px 12px; border-radius: 18px; }
+      .insight-icon { font-size: 1.6rem; margin-bottom: 12px; }
+      .insight-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+      .insight-card p { font-size: 0.8rem; margin-bottom: 12px; }
       
-      .footer { flex-direction: row; justify-content: space-between; padding: 50px 0 30px; }
-      .footer p { font-size: 1rem; }
-      .social i { font-size: 1.6rem; margin-left: 30px; }
+      .contact-premium { padding: 25px 12px; border-radius: 25px; margin: 30px 0; }
+      .contact-info h3 { font-size: 1.2rem; }
+      .contact-detail { margin: 12px 0; gap: 10px; }
+      .contact-detail i { font-size: 1.2rem; width: 28px; }
+      .contact-detail span { font-size: 0.8rem; }
+      .contact-form { padding: 18px 12px; border-radius: 22px; }
+      .input-group { margin-bottom: 12px; }
+      .input-group label { font-size: 0.75rem; margin-bottom: 5px; }
+      .input-group input, .input-group textarea { padding: 10px 12px; font-size: 0.85rem; border-radius: 18px; }
+      .input-group textarea { min-height: 60px; }
+      .submit-btn { padding: 12px 18px; font-size: 0.9rem; border-radius: 22px; }
       
-      .whatsapp-float { width: 60px; height: 60px; bottom: 30px; right: 30px; }
-      .whatsapp-float i { font-size: 32px; }
+      .footer { padding: 25px 0 20px; }
+      .footer p { font-size: 0.75rem; }
+      .social i { font-size: 1.2rem; margin: 0 10px; }
       
-      .lang-float { bottom: 30px; left: 50%; transform: translateX(-50%); padding: 10px 20px; gap: 8px; max-width: none; flex-wrap: nowrap; }
-      .lang-float button { padding: 6px 12px; font-size: 0.9rem; border-radius: 20px; min-width: auto; }
+      .whatsapp-float { width: 42px; height: 42px; bottom: 15px; right: 15px; }
+      .whatsapp-float i { font-size: 20px; }
       
-      .partner-modal { padding: 40px 35px; border-radius: 35px; max-width: 480px; }
-      .partner-modal h2 { font-size: 2rem; margin-bottom: 8px; }
-      .partner-modal p { font-size: 0.95rem; margin-bottom: 25px; }
-      .partner-modal .input-group { margin-bottom: 18px; }
-      .partner-modal .input-group input, .partner-modal .input-group select, .partner-modal .input-group textarea { padding: 14px 18px; font-size: 1rem; border-radius: 25px; }
-      .partner-submit { padding: 16px 30px; font-size: 1.1rem; border-radius: 30px; }
-      .modal-close { font-size: 2rem; top: 15px; right: 15px; width: 40px; height: 40px; }
+      .lang-float { bottom: 15px; padding: 5px 8px; gap: 2px; max-width: 60%; }
+      .lang-float button { padding: 4px 5px; font-size: 0.6rem; border-radius: 6px; min-width: 28px; }
+      
+      .toast-msg { bottom: 15px; right: 10px; left: 10px; padding: 10px 15px; font-size: 0.8rem; border-radius: 20px; }
+      
+      .partner-modal { padding: 20px 12px; border-radius: 18px; max-width: 92%; }
+      .partner-modal h2 { font-size: 1.3rem; margin-bottom: 8px; }
+      .partner-modal p { font-size: 0.75rem; margin-bottom: 15px; }
+      .partner-modal .input-group { margin-bottom: 12px; }
+      .partner-modal .input-group label { font-size: 0.75rem; margin-bottom: 4px; }
+      .partner-modal .input-group input, .partner-modal .input-group select, .partner-modal .input-group textarea { padding: 10px 12px; font-size: 0.85rem; border-radius: 20px; }
+      .partner-submit { padding: 12px 18px; font-size: 0.9rem; border-radius: 25px; margin-top: 10px; }
+      .modal-close { font-size: 1.6rem; top: 10px; right: 10px; width: 32px; height: 32px; }
     }
 
     /* Disable custom cursor on touch devices */
