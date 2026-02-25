@@ -1166,14 +1166,22 @@
     }
 
     @media (max-width: 768px) {
-      body { padding-top: 85px; }
+      body { padding-top: 70px; }
       
-      .navbar { padding: 12px 0; }
-      .logo-text h1 { font-size: 1.5rem; }
-      .logo-text span { font-size: 0.7rem; letter-spacing: 2px; }
-      .log { width: 50px; height: 50px; }
-      .nav-cta { padding: 8px 20px; font-size: 0.85rem; }
-      .menu-toggle { padding: 5px 14px; font-size: 1.7rem; }
+      .navbar { 
+        padding: 10px 0; 
+        min-height: 70px;
+        align-items: center;
+      }
+      .logo { gap: 8px; }
+      .logo-text h1 { font-size: 1.3rem; letter-spacing: 1px; }
+      .logo-text span { font-size: 0.5rem; letter-spacing: 0.5px; }
+      .logo-text { line-height: 1.1; }
+      .log { width: 42px; height: 42px; }
+      .nav-cta { padding: 6px 14px; font-size: 0.75rem; border-radius: 25px; }
+      .nav-cta span { display: none; }
+      .nav-cta::before { content: '\f2b5'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 1rem; }
+      .menu-toggle { padding: 5px 12px; font-size: 1.5rem; border-radius: 8px; }
       
       .hero { flex-direction: column-reverse; padding: 30px 0 50px; text-align: center; }
       .hero-left { min-width: 100%; }
