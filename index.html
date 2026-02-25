@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -21,6 +21,7 @@
       line-height: 1.5;
       scroll-behavior: smooth;
       overflow-x: hidden;
+      padding-top: 100px;
     }
 
     :root {
@@ -88,10 +89,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 0;
+      padding: 14px 0;
+      width: 100%;
       border-bottom: 1px solid rgba(212, 175, 55, 0.12);
       flex-wrap: wrap;
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: #0a0c12;
     }
 
     .logo {
@@ -101,11 +107,11 @@
       z-index: 102;
     }
 
-    .logo-icon {
-      font-size: 2rem;
-      color: var(--gold-primary);
-      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
-    }
+   .log{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+   }
 
     .logo-text h1 {
       font-size: 1.9rem;
@@ -470,6 +476,31 @@
       opacity: 0;
       filter: blur(4px);
       z-index: 0;
+    }
+
+    /* Mining card background images */
+    .mining-card.bg-industrial {
+      background: linear-gradient(rgba(19, 23, 34, 0.9), rgba(19, 23, 34, 0.85)), url('images/golda.jpeg') !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    .mining-card.bg-artisanal {
+      background: linear-gradient(rgba(19, 23, 34, 0.9), rgba(19, 23, 34, 0.85)), url('images/arc.jpeg') !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    .mining-card.bg-exploration {
+      background: linear-gradient(rgba(19, 23, 34, 0.9), rgba(19, 23, 34, 0.85)), url('images/crystals.jpeg') !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    .mining-card.bg-water {
+      background: linear-gradient(rgba(19, 23, 34, 0.9), rgba(19, 23, 34, 0.85)), url('images/crystals.jpeg') !important;
+      background-size: cover !important;
+      background-position: center !important;
     }
 
     .mining-icon {
@@ -944,6 +975,74 @@
     @media (max-width: 550px) {
       .hero-buttons .btn-primary,
       .hero-buttons .btn-outline { width: 100%; text-align: center; }
+      .custom-cursor {display: none;}
+      .cursor-dot {display: cursor;}
+      
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      text-decoration: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+      z-index: 1001;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-float i {
+      font-size: 32px;
+      color: white;
+    }
+
+    /* Language Switcher JavaScript will handle interaction */
+
+    /* Floating Language Changer */
+    .lang-float {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+      display: flex;
+      gap: 8px;
+      background: #1e212b;
+      padding: 10px 20px;
+      border-radius: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .lang-float button {
+      background: transparent;
+      border: none;
+      color: #9aa1b5;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    .lang-float button:hover,
+    .lang-float button.active {
+      background: var(--gold-primary);
+      color: #0b0c10;
     }
   </style>
 </head>
@@ -992,67 +1091,87 @@
     <!-- navbar -->
     <nav class="navbar">
       <div class="logo">
-        <i class="fas fa-gem logo-icon"></i>
+        <a href="#home"><img src="images/logo.jpeg" class="log"></a>
         <div class="logo-text">
           <h1>PRIME GOLD LTD</h1>
           <span>PRECIOUS METALS · MINERALS</span>
         </div>
       </div>
       <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#mining">Mining</a>
-        <a href="#trading">Trading</a>
-        <a href="#insights">Insights</a>
-        <a href="#contact">Contact</a>
+        <a href="#home" data-i18n="nav.home">Home</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#mining" data-i18n="nav.mining">Mining</a>
+        <a href="#trading" data-i18n="nav.trading">Trading</a>
+        <a href="#insights" data-i18n="nav.insights">Insights</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
-      <button class="nav-cta" id="partnerBtn"><i class="fas fa-handshake"></i> PARTNER</button>
+      <button class="nav-cta" id="partnerBtn"><i class="fas fa-handshake"></i> <span data-i18n="nav.partner">PARTNER</span></button>
       <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
     </nav>
 
     <!-- mobile menu overlay -->
     <div class="mobile-nav" id="mobileNav">
       <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
-      <a href="#home" class="mobile-link">Home</a>
-      <a href="#mining" class="mobile-link">Mining</a>
-      <a href="#trading" class="mobile-link">Trading</a>
-      <a href="#insights" class="mobile-link">Insights</a>
-      <a href="#contact" class="mobile-link">Contact</a>
-      <a href="#" id="mobilePartner" style="color:#d4af37; font-size:2.4rem;">Partner</a>
+      <a href="#home" class="mobile-link" data-i18n="nav.home">Home</a>
+      <a href="#about" class="mobile-link" data-i18n="nav.about">About</a>
+      <a href="#mining" class="mobile-link" data-i18n="nav.mining">Mining</a>
+      <a href="#trading" class="mobile-link" data-i18n="nav.trading">Trading</a>
+      <a href="#insights" class="mobile-link" data-i18n="nav.insights">Insights</a>
+      <a href="#contact" class="mobile-link" data-i18n="nav.contact">Contact</a>
+      <a href="#" id="mobilePartner" style="color:#d4af37; font-size:2.4rem;" data-i18n="nav.partner">Partner</a>
     </div>
 
     <!-- HOME -->
     <section id="home">
       <div class="hero">
         <div class="hero-left">
-          <div class="pre-title"><i class="fas fa-vector-square"></i> SINCE 2002 · AFRICA FOCUS</div>
-          <h2>Beyond purity, <br>we deliver trust.</h2>
-          <p>Prime Gold Ltd is a premier supplier of gold, diamonds & industrial minerals. We bridge African resources with world markets — ethically, transparently.</p>
+          <div class="pre-title"><i class="fas fa-vector-square"></i> <span data-i18n="hero.since">SINCE 2002 · AFRICA FOCUS</span></div>
+          <h2 data-i18n="hero.title">Beyond purity, <br>we deliver trust.</h2>
+          <p data-i18n="hero.subtitle">Prime Gold Ltd is a premier supplier of gold, diamonds & industrial minerals. We bridge African resources with world markets — ethically, transparently.</p>
           <div class="hero-buttons">
-            <a href="#mining"><button  class="btn-primary" id="exploreBtn" ><i class="fas fa-search"></i> EXPLORE</button></a>
-            <button class="btn-outline" id="brochureBtn"><i class="fas fa-file-pdf"></i> BROCHURE</button>
+            <a href="#mining"><button  class="btn-primary" id="exploreBtn" ><i class="fas fa-search"></i> <span data-i18n="hero.explore">EXPLORE</span></button></a>
+            <button class="btn-outline" id="brochureBtn"><i class="fas fa-file-pdf"></i> <span data-i18n="hero.brochure">BROCHURE</span></button>
           </div>
         </div>
-        <div class="hero-right">
-          <div class="gold-badge">
-            <i class="fas fa-cube"></i>
-            <h3>24K · 995+</h3>
-            <p>LONDON GOOD DELIVERY</p>
-          </div>
+<div class="hero-right">
+          <img src="images/golda.jpeg" alt="Gold" style="max-width: 100%; border-radius: 20px;">
         </div>
       </div>
       <div class="trust-bar">
-        <div class="trust-item"><i class="fas fa-check-circle"></i> LBMA accredited</div>
-        <div class="trust-item"><i class="fas fa-leaf"></i> Conflict-free</div>
-        <div class="trust-item"><i class="fas fa-truck"></i> Direct mine partnership</div>
-        <div class="trust-item"><i class="fas fa-globe"></i> 14 countries</div>
+        <div class="trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="trust.lbma">LBMA accredited</span></div>
+        <div class="trust-item"><i class="fas fa-leaf"></i> <span data-i18n="trust.conflictfree">Conflict-free</span></div>
+        <div class="trust-item"><i class="fas fa-truck"></i> <span data-i18n="trust.direct">Direct mine partnership</span></div>
+        <div class="trust-item"><i class="fas fa-globe"></i> <span data-i18n="trust.countries">14 countries</span></div>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about">
+      <div class="section-header">
+        <h4 data-i18n="about.title">about us</h4>
+        <h2 data-i18n="about.subtitle">Pioneering ethical gold & mineral trade since 2002</h2>
+      </div>
+      <div class="about-block">
+        <div class="about-text">
+          <h5 data-i18n="about.who">who we are</h5>
+          <h3 data-i18n="about.heading">Building bridges between African resources and global markets</h3>
+          <p>Prime Gold Ltd is a leading supplier and trader of gold, diamonds, and industrial minerals. Founded in 2002, we have established ourselves as a trusted partner for mining companies, refineries, and investors worldwide.</p>
+          <p data-i18n="about.desc">Our commitment to ethical sourcing, transparency, and sustainable practices has made us a preferred choice in the global precious metals market. With operations spanning 14 countries across Africa, we bridge the gap between local mining communities and international markets.</p>
+          <div class="about-stats">
+            <div class="stat"><span class="number">23+</span> <span class="label" data-i18n="about.exp">years experience</span></div>
+            <div class="stat"><span class="number">14</span> <span class="label" data-i18n="about.countries">countries</span></div>
+            <div class="stat"><span class="number">500+</span> <span class="label" data-i18n="about.partners">partners</span></div>
+          </div>
+        </div>
+<div class="about-image"><img src="images/arc.jpeg" alt="About Prime Gold" style="max-width: 100%; border-radius: 20px;"></div>
       </div>
     </section>
 
     <!-- MINING (auto‑slide cards) -->
-    <section id="mining">
+<section id="mining" style="background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.95)), url('images/crystals.jpeg'); background-size: cover; background-position: center; background-attachment: fixed; border-radius: 60px; margin: 40px 0;">
       <div class="section-header">
-        <h4>mining operations</h4>
-        <h2>Responsible sourcing from African soil</h2>
+        <h4 data-i18n="mining.title">mining operations</h4>
+        <h2 data-i18n="mining.subtitle">Responsible sourcing from African soil</h2>
       </div>
       <div class="mining-slider" id="miningSlider"></div>
       <div class="slider-dots" id="sliderDots"></div>
@@ -1061,53 +1180,56 @@
     <!-- TRADING -->
     <section id="trading">
       <div class="section-header">
-        <h4>global trading</h4>
-        <h2>Physical commodities, refined logistics</h2>
+        <h4 data-i18n="trading.title">global trading</h4>
+        <h2 data-i18n="trading.subtitle">Physical commodities, refined logistics</h2>
       </div>
       <div class="about-block" style="margin-top:0;">
         <div class="about-text">
-          <h5>market access</h5>
-          <h3>We connect producers to refineries worldwide</h3>
+          <h5 data-i18n="trading.access">market access</h5>
+          <h3 data-i18n="trading.heading">We connect producers to refineries worldwide</h3>
           <p>Offices in Johannesburg, Dubai, Geneva. $2.8B annual trade, 35+ countries.</p>
           <div class="about-stats">
-            <div class="stat"><span class="number">$2.8B</span> <span class="label">annual trade</span></div>
-            <div class="stat"><span class="number">35+</span> <span class="label">countries</span></div>
+            <div class="stat"><span class="number">$2.8B</span> <span class="label" data-i18n="trading.annual">annual trade</span></div>
+            <div class="stat"><span class="number">35+</span> <span class="label" data-i18n="trading.countries">countries</span></div>
           </div>
         </div>
-        <div class="about-image"><i class="fas fa-chart-pie"></i></div>
+<div class="about-image" style="flex-direction: column; align-items: center;">
+          <img src="images/crystals.jpeg" alt="Crystals" style="max-width: 100%; border-radius: 20px;">
+          <p style="text-align: center; margin-top: 20px; color: var(--gold-primary); font-size: 1.1rem;">from 95% purity and above</p>
+        </div>
       </div>
     </section>
 
     <!-- INSIGHTS – FIXED GRID -->
-    <section id="insights">
+    <section id="insights" style="background: linear-gradient(rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 0.95)), url('images/bar.jpeg'); background-size: cover; background-position: center; background-attachment: fixed; border-radius: 60px; margin: 40px 0; padding: 60px 0;">
       <div class="section-header">
-        <h4>insights & reports</h4>
-        <h2>Market intelligence for partners</h2>
+        <h4 data-i18n="insights.title">insights & reports</h4>
+        <h2 data-i18n="insights.subtitle">Market intelligence for partners</h2>
       </div>
       <div class="insight-grid">
         <div class="insight-card">
           <i class="fas fa-newspaper insight-icon"></i>
           <h3>Quarterly Outlook</h3>
           <p>H2 2025 precious metals trends, supply analysis, and price forecasts.</p>
-          <a class="card-link" data-toast="📥 Downloading PDF – Quarterly Outlook H2 2025">Download PDF <i class="fas fa-arrow-right"></i></a>
+          <a class="card-link" data-i18n="insights.download" data-toast="📥 Downloading PDF – Quarterly Outlook H2 2025">Download PDF <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="insight-card">
           <i class="fas fa-map-marked-alt insight-icon"></i>
           <h3>Country risk</h3>
           <p>Updated jurisdiction ratings for DRC, Zambia, Zimbabwe, and Ghana.</p>
-          <a class="card-link" data-toast="📊 View report – country risk updated Q2">View report <i class="fas fa-arrow-right"></i></a>
+          <a class="card-link" data-i18n="insights.viewreport" data-toast="📊 View report – country risk updated Q2">View report <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="insight-card">
           <i class="fas fa-video insight-icon"></i>
           <h3>Webinars</h3>
           <p>Expert sessions on LBMA compliance, responsible sourcing, and logistics.</p>
-          <a class="card-link" data-toast="🎥 Watch latest: Responsible sourcing 2025">Watch latest <i class="fas fa-arrow-right"></i></a>
+          <a class="card-link" data-i18n="insights.watch" data-toast="🎥 Watch latest: Responsible sourcing 2025">Watch latest <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="insight-card">
           <i class="fas fa-bullhorn insight-icon"></i>
           <h3>Press releases</h3>
           <p>New partnerships, lithium expansion, and community milestones.</p>
-          <a class="card-link" data-toast="📰 Read more – Prime Gold enters lithium trading">Read more <i class="fas fa-arrow-right"></i></a>
+          <a class="card-link" data-i18n="insights.readmore" data-toast="📰 Read more – Prime Gold enters lithium trading">Read more <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
     </section>
@@ -1117,16 +1239,16 @@
       <div class="contact-premium">
         <div class="contact-flex">
           <div class="contact-info">
-            <h3><i class="fas fa-paper-plane" style="color:#d4af37;"></i> Reach out for a direct conversation</h3>
+            <h3><i class="fas fa-paper-plane" style="color:#d4af37;"></i> <span data-i18n="contact.reach">Reach out for a direct conversation</span></h3>
             <div class="contact-detail"><i class="fas fa-map-pin"></i><span>27 Mineral Street, Sandton</span></div>
             <div class="contact-detail"><i class="fas fa-phone-alt"></i><span>+256 704 437 982</span></div>
             <div class="contact-detail"><i class="fas fa-envelope"></i><span>contact@primegold.com</span></div>
           </div>
           <div class="contact-form">
-            <div class="input-group"><label>Full name</label><input type="text" id="nameInput" placeholder="Your name"></div>
-            <div class="input-group"><label>Email</label><input type="email" id="emailInput" placeholder="you@example.com"></div>
-            <div class="input-group"><label>Message</label><textarea id="msgInput" placeholder="I'm interested in..."></textarea></div>
-            <button class="submit-btn" id="sendMessageBtn"><i class="fas fa-paper-plane"></i> SEND MESSAGE</button>
+            <div class="input-group"><label data-i18n="contact.name">Full name</label><input type="text" id="nameInput" placeholder="Your name"></div>
+            <div class="input-group"><label data-i18n="contact.email">Email</label><input type="email" id="emailInput" placeholder="you@example.com"></div>
+            <div class="input-group"><label data-i18n="contact.message">Message</label><textarea id="msgInput" placeholder="I'm interested in..."></textarea></div>
+            <button class="submit-btn" id="sendMessageBtn"><i class="fas fa-paper-plane"></i> <span data-i18n="contact.send">SEND MESSAGE</span></button>
           </div>
         </div>
       </div>
@@ -1134,7 +1256,7 @@
 
     <hr>
     <div class="footer">
-      <p>© 2026 Prime Gold Ltd — ethical minerals</p>
+      <p data-i18n="footer.copyright">© 2026 Prime Gold Ltd — ethical minerals</p>
       <div class="social">
         <i class="fab fa-linkedin-in"></i>
         <i class="fab fa-x-twitter"></i>
@@ -1145,6 +1267,20 @@
 
   <!-- toast -->
   <div class="toast-msg" id="toast">✨ Ready</div>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/256704437982" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Floating Language Changer -->
+  <div class="lang-float">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+    <button class="lang-btn" data-lang="ar">AR</button>
+    <button class="lang-btn" data-lang="zh">中</button>
+  </div>
 
   <script>
     (function() {
@@ -1216,7 +1352,12 @@
 
       // EXPLORE & BROCHURE
       document.getElementById('exploreBtn').addEventListener('click', () => showToast('⛏️ Explore catalogue (interactive demo)'));
-      document.getElementById('brochureBtn').addEventListener('click', () => showToast('📄 Downloading brochure (PDF 8.2 MB)'));
+      document.getElementById('brochureBtn').addEventListener('click', () => {
+        const lang = document.documentElement.lang || 'en';
+        const msgs = { en: '📄 Save as PDF', fr: '📄 Enregistrer en PDF', es: '📄 Guardar como PDF', ar: '📄 حفظ كـ PDF', zh: '📄 另存为PDF' };
+        showToast(msgs[lang] || msgs.en);
+        setTimeout(() => window.print(), 500);
+      });
 
       // CARD LINKS (insight cards + mining)
       document.querySelectorAll('.card-link').forEach(link => {
@@ -1278,12 +1419,12 @@
       });
       navLinks[0].classList.add('active');
 
-      // MINING SLIDER (auto slide)
+// MINING SLIDER (auto slide)
       const miningData = [
-        { icon: 'fa-hard-hat', title: 'Industrial Mining', desc: 'Large‑scale gold & copper.', toast: '📋 Industrial mining portfolio – 3 active sites' },
-        { icon: 'fa-hand-holding-heart', title: 'Artisanal Support', desc: 'Empowering small‑scale miners.', toast: '🤝 ASM training & fair trade programs' },
-        { icon: 'fa-flask', title: 'Exploration', desc: 'Greenstone Belt projects.', toast: '🗺️ Exploration data – 3 prospects, 2 drill‑ready' },
-        { icon: 'fa-hand-holding-water', title: 'Water Stewardship', desc: 'Closed‑loop systems.', toast: '💧 Sustainability report 2025 – water positive' }
+        { icon: 'fa-hard-hat', title: 'Industrial Mining', desc: 'Large‑scale gold & copper.', toast: '📋 Industrial mining portfolio – 3 active sites', bgImage: 'images/industrial.jpg' },
+        { icon: 'fa-hand-holding-heart', title: 'Artisanal Support', desc: 'Empowering small‑scale miners.', toast: '🤝 ASM training & fair trade programs', bgImage: 'images/artisanal.webp' },
+        { icon: 'fa-flask', title: 'Exploration', desc: 'Greenstone Belt projects.', toast: '🗺️ Exploration data – 3 prospects, 2 drill‑ready', bgImage: 'images/exploration.jpeg' },
+        { icon: 'fa-hand-holding-water', title: 'Water Stewardship', desc: 'Closed‑loop systems.', toast: '💧 Sustainability report 2025 – water positive', bgImage: 'images/crystals.jpeg' }
       ];
 
       const sliderContainer = document.getElementById('miningSlider');
@@ -1304,14 +1445,12 @@
             positionClass = dist > 1 ? 'hidden-left' : 'hidden-right';
           }
 
-          html += `
-            <div class="mining-card ${positionClass}" data-index="${i}">
+          html += `<div class="mining-card ${positionClass}" data-index="${i}" style="background: linear-gradient(rgba(19, 23, 34, 0.9), rgba(19, 23, 34, 0.85)), url('${miningData[i].bgImage}') !important; background-size: cover !important; background-position: center !important;">
               <i class="fas ${miningData[i].icon} mining-icon"></i>
               <h3>${miningData[i].title}</h3>
               <p>${miningData[i].desc}</p>
-              <a class="card-link" data-toast="${miningData[i].toast}">Learn more <i class="fas fa-arrow-right"></i></a>
-            </div>
-          `;
+              <a class="card-link" data-i18n="mining.learnmore" data-toast="${miningData[i].toast}">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>`;
         }
         sliderContainer.innerHTML = html;
 
@@ -1357,6 +1496,88 @@
 
       window.addEventListener('beforeunload', () => {
         if (intervalId) clearInterval(intervalId);
+      });
+
+      // Language Switcher
+      const langBtns = document.querySelectorAll('.lang-btn');
+      const translations = {
+        en: { 
+          'nav.home': 'Home', 'nav.about': 'About', 'nav.mining': 'Mining', 'nav.trading': 'Trading', 'nav.insights': 'Insights', 'nav.contact': 'Contact', 'nav.partner': 'PARTNER',
+          'hero.since': 'SINCE 2002 · AFRICA FOCUS', 'hero.title': 'Beyond purity, <br>we deliver trust.', 'hero.subtitle': 'Prime Gold Ltd is a premier supplier of gold, diamonds & industrial minerals. We bridge African resources with world markets.', 'hero.explore': 'EXPLORE', 'hero.brochure': 'BROCHURE', 'hero.london': 'LONDON GOOD DELIVERY',
+          'trust.lbma': 'LBMA accredited', 'trust.conflictfree': 'Conflict-free', 'trust.direct': 'Direct mine partnership', 'trust.countries': '14 countries',
+          'about.title': 'about us', 'about.subtitle': 'Pioneering ethical gold & mineral trade since 2002', 'about.who': 'who we are', 'about.heading': 'Building bridges between African resources and global markets', 'about.desc': 'Our commitment to ethical sourcing, transparency, and sustainable practices has made us a preferred choice.', 'about.exp': 'years experience', 'about.countries': 'countries', 'about.partners': 'partners',
+          'mining.title': 'mining operations', 'mining.subtitle': 'Responsible sourcing from African soil', 'mining.learnmore': 'Learn more',
+          'trading.title': 'global trading', 'trading.subtitle': 'Physical commodities, refined logistics', 'trading.access': 'market access', 'trading.heading': 'We connect producers to refineries worldwide', 'trading.annual': 'annual trade', 'trading.countries': 'countries',
+          'insights.title': 'insights & reports', 'insights.subtitle': 'Market intelligence for partners', 'insights.download': 'Download PDF', 'insights.viewreport': 'View report', 'insights.watch': 'Watch latest', 'insights.readmore': 'Read more',
+          'contact.reach': 'Reach out for a direct conversation', 'contact.name': 'Full name', 'contact.email': 'Email', 'contact.message': 'Message', 'contact.send': 'SEND MESSAGE',
+          'footer.copyright': '© 2026 Prime Gold Ltd — ethical minerals'
+        },
+        fr: { 
+          'nav.home': 'Accueil', 'nav.about': 'À propos', 'nav.mining': 'Exploitation', 'nav.trading': 'Commerce', 'nav.insights': 'Analyses', 'nav.contact': 'Contact', 'nav.partner': 'PARTENAIRE',
+          'hero.since': 'DEPUIS 2002 · AFRIQUE', 'hero.title': 'Au-delà de la pureté, <br>nous délivrons la confiance.', 'hero.subtitle': 'Prime Gold Ltd est un fournisseur leader de lor, diamants et minéraux industriels.', 'hero.explore': 'EXPLORER', 'hero.brochure': 'BROCHURE', 'hero.london': 'LONDON GOOD DELIVERY',
+          'trust.lbma': 'Accrédité LBMA', 'trust.conflictfree': 'Sans conflit', 'trust.direct': 'Partenariat direct', 'trust.countries': '14 pays',
+          'about.title': 'à propos', 'about.subtitle': 'Pionnier du commerce éthique depuis 2002', 'about.who': 'qui nous sommes', 'about.heading': 'Créer des ponts entre ressources africaines et marchés mondiaux', 'about.desc': 'Notre engagement envers létthique et la transparence nous distingue.', 'about.exp': "années d'expérience", 'about.countries': 'pays', 'about.partners': 'partenaires',
+          'mining.title': 'opérations minières', 'mining.subtitle': 'Approvisionnement responsable', 'mining.learnmore': 'En savoir plus',
+          'trading.title': 'commerce mondial', 'trading.subtitle': 'Marchandises physiques, logistique raffinée', 'trading.access': 'accès au marché', 'trading.heading': 'Producteurs vers raffineries mondiales', 'trading.annual': 'commerce annuel', 'trading.countries': 'pays',
+          'insights.title': 'analyses et rapports', 'insights.subtitle': 'Intelligence de marché pour partenaires', 'insights.download': 'Télécharger PDF', 'insights.viewreport': 'Voir rapport', 'insights.watch': 'Voir vidéo', 'insights.readmore': 'Lire plus',
+          'contact.reach': 'Contactez-nous', 'contact.name': 'Nom complet', 'contact.email': 'E-mail', 'contact.message': 'Message', 'contact.send': 'ENVOYER',
+          'footer.copyright': '© 2026 Prime Gold Ltd — minéraux éthiques'
+        },
+        es: { 
+          'nav.home': 'Inicio', 'nav.about': 'Nosotros', 'nav.mining': 'Minería', 'nav.trading': 'Comercio', 'nav.insights': 'Análisis', 'nav.contact': 'Contacto', 'nav.partner': 'SOCIO',
+          'hero.since': 'DESDE 2002 · ÁFRICA', 'hero.title': 'Más allá de la pureza, <br>entregamos confianza.', 'hero.subtitle': 'Prime Gold Ltd es proveedor líder de oro, diamantes y minerales industriales.', 'hero.explore': 'EXPLORAR', 'hero.brochure': 'FOLLETO', 'hero.london': 'LONDON GOOD DELIVERY',
+          'trust.lbma': 'Acreditado LBMA', 'trust.conflictfree': 'Sin conflicto', 'trust.direct': 'Asociación directa', 'trust.countries': '14 países',
+          'about.title': 'sobre nosotros', 'about.subtitle': 'Pioneros del comercio ético desde 2002', 'about.who': 'quiénes somos', 'about.heading': 'Construyendo puentes recursos africanos-mercados globales', 'about.desc': 'Nuestro compromiso con ética y transparencia nos distingue.', 'about.exp': 'años de experiencia', 'about.countries': 'países', 'about.partners': 'socios',
+          'mining.title': 'operaciones mineras', 'mining.subtitle': 'Abastecimiento responsable', 'mining.learnmore': 'Más información',
+          'trading.title': 'comercio global', 'trading.subtitle': 'Materias primas, logística refinada', 'trading.access': 'acceso al mercado', 'trading.heading': 'Productores a refinerías mundiales', 'trading.annual': 'comercio anual', 'trading.countries': 'países',
+          'insights.title': 'análisis e informes', 'insights.subtitle': 'Inteligencia de mercado para socios', 'insights.download': 'Descargar PDF', 'insights.viewreport': 'Ver informe', 'insights.watch': 'Ver video', 'insights.readmore': 'Leer más',
+          'contact.reach': 'Contáctenos', 'contact.name': 'Nombre completo', 'contact.email': 'Correo', 'contact.message': 'Mensaje', 'contact.send': 'ENVIAR',
+          'footer.copyright': '© 2026 Prime Gold Ltd — minerales éticos'
+        },
+        ar: { 
+          'nav.home': 'الرئيسية', 'nav.about': 'من نحن', 'nav.mining': 'التعدين', 'nav.trading': 'التجارة', 'nav.insights': 'الرؤى', 'nav.contact': 'اتصل بنا', 'nav.partner': 'شريك',
+          'hero.since': 'منذ 2002 · أفريقيا', 'hero.title': 'جاوزة النقاء، <br>نقدم الثقة.', 'hero.subtitle': 'Prime Gold Ltd مورد رئيسي للذهب والماس.', 'hero.explore': 'استكشف', 'hero.brochure': 'كتيب', 'hero.london': 'تسليم لندن',
+          'trust.lbma': 'معتمد LBMA', 'trust.conflictfree': 'خالي من الصراع', 'trust.direct': 'شراكة مباشرة', 'trust.countries': '14 دولة',
+          'about.title': 'من نحن', 'about.subtitle': 'رواد التجارة الأخلاقية منذ 2002', 'about.who': 'من نكون', 'about.heading': 'بناء الجسور', 'about.desc': 'التزامنا بالأخلاق والشفافية.', 'about.exp': 'سنوات الخبرة', 'about.countries': 'دول', 'about.partners': 'شركاء',
+          'mining.title': 'التعدين', 'mining.subtitle': 'مصادر مسؤول', 'mining.learnmore': 'اعرف المزيد',
+          'trading.title': 'التجارة العالمية', 'trading.subtitle': 'سلع ولوجستيات', 'trading.access': 'السوق', 'trading.heading': 'المنتجون والمصافي', 'trading.annual': 'التداول', 'trading.countries': 'دول',
+          'insights.title': 'الرؤى والتقارير', 'insights.subtitle': 'استخبارات السوق للشركاء', 'insights.download': 'تحميل PDF', 'insights.viewreport': 'عرض التقرير', 'insights.watch': 'شاهد', 'insights.readmore': 'اقرأ المزيد',
+          'contact.reach': 'تواصل معنا', 'contact.name': 'الاسم', 'contact.email': 'البريد', 'contact.message': 'الرسالة', 'contact.send': 'إرسال',
+          'footer.copyright': '© 2026 Prime Gold Ltd — معادن أخلاقية'
+        },
+        zh: { 
+          'nav.home': '首页', 'nav.about': '关于我们', 'nav.mining': '采矿', 'nav.trading': '贸易', 'nav.insights': '洞察', 'nav.contact': '联系', 'nav.partner': '合作',
+          'hero.since': '自2002年 · 非洲', 'hero.title': '超越纯度，<br>我们传递信任。', 'hero.subtitle': 'Prime Gold Ltd是黄金、钻石的主要供应商。', 'hero.explore': '探索', 'hero.brochure': '手册', 'hero.london': '伦敦交付',
+          'trust.lbma': 'LBMA认证', 'trust.conflictfree': '无冲突', 'trust.direct': '直接合作', 'trust.countries': '14国',
+          'about.title': '关于我们', 'about.subtitle': '自2002年开创道德贸易', 'about.who': '我们是谁', 'about.heading': '搭建桥梁', 'about.desc': '我们的承诺。', 'about.exp': '年经验', 'about.countries': '国', 'about.partners': '伙伴',
+          'mining.title': '采矿', 'mining.subtitle': '负责采购', 'mining.learnmore': '了解更多',
+          'trading.title': '全球贸易', 'trading.subtitle': '实物商品', 'trading.access': '市场', 'trading.heading': '连接全球', 'trading.annual': '年贸易', 'trading.countries': '国',
+          'insights.title': '洞察与报告', 'insights.subtitle': '合作伙伴的市场情报', 'insights.download': '下载PDF', 'insights.viewreport': '查看报告', 'insights.watch': '观看视频', 'insights.readmore': '阅读更多',
+          'contact.reach': '联系我们', 'contact.name': '姓名', 'contact.email': '邮件', 'contact.message': '留言', 'contact.send': '发送',
+          'footer.copyright': '© 2026 Prime Gold Ltd — 道德矿产'
+        },
+      };
+      
+      function translatePage(lang) {
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[lang] && translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+          }
+        });
+        document.documentElement.lang = lang;
+        document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      }
+
+      langBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          langBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const lang = this.getAttribute('data-lang');
+          translatePage(lang);
+          showToast('🌐 ' + (lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : lang === 'es' ? 'Español' : lang === 'ar' ? 'العربية' : '中文'));
+        });
       });
 
     })();
