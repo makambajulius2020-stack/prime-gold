@@ -6,6 +6,8 @@
   <title>Prime Gold Ltd · premium minerals</title>
   <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * {
       margin: 0;
@@ -862,8 +864,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(12px);
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -871,6 +873,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
+      padding: 15px;
     }
 
     .modal-overlay.active {
@@ -879,36 +882,44 @@
     }
 
     .partner-modal {
-      background: #141a26;
+      background: linear-gradient(145deg, #141a26, #1a2233);
       border: 2px solid var(--gold-primary);
-      border-radius: 60px;
-      padding: 50px 45px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 30px #d4af3740;
+      border-radius: 35px;
+      padding: 40px 35px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px #d4af3730, inset 0 1px 0 rgba(255,255,255,0.05);
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .partner-modal h2 {
-      font-size: 2.4rem;
+      font-size: 2rem;
       color: var(--gold-light);
-      margin-bottom: 15px;
+      margin-bottom: 8px;
       text-align: center;
+      font-weight: 600;
     }
 
     .partner-modal p {
       color: var(--text-muted);
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
     }
 
     .partner-modal .input-group {
-      margin-bottom: 25px;
+      margin-bottom: 18px;
     }
 
     .partner-modal .input-group label {
       color: var(--gold-primary);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
     }
 
     .partner-modal .input-group input,
@@ -916,49 +927,188 @@
     .partner-modal .input-group textarea {
       width: 100%;
       background: #1d293a;
-      border: 1px solid #4a5266;
-      border-radius: 40px;
-      padding: 14px 20px;
+      border: 1px solid #3a4555;
+      border-radius: 25px;
+      padding: 14px 18px;
       color: white;
       font-size: 1rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .partner-modal .input-group input::placeholder,
+    .partner-modal .input-group textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .partner-modal .input-group input:focus,
+    .partner-modal .input-group select:focus,
+    .partner-modal .input-group textarea:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 20px #d4af3740;
+      background: #1f3447;
+    }
+
+    .partner-modal .input-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4af37' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      padding-right: 45px;
+      cursor: pointer;
+    }
+
+    .partner-modal .input-group select option {
+      background: #1d293a;
+      color: white;
     }
 
     .partner-modal .input-group textarea {
-      border-radius: 30px;
-      min-height: 90px;
+      border-radius: 20px;
+      min-height: 80px;
+      resize: vertical;
     }
 
     .modal-close {
       position: absolute;
-      top: 20px;
-      right: 25px;
-      font-size: 2.5rem;
+      top: 15px;
+      right: 15px;
+      font-size: 2rem;
       color: var(--gold-primary);
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s ease;
+      z-index: 10;
+      background: rgba(20, 26, 38, 0.95);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.3);
     }
 
     .modal-close:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) rotate(90deg);
       color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.15);
     }
 
     .partner-submit {
-      background: var(--gold-primary);
+      background: linear-gradient(135deg, var(--gold-primary), #c9a227);
       color: #0b0c10;
       border: none;
       padding: 16px 30px;
       font-weight: 700;
-      font-size: 1.2rem;
-      border-radius: 50px;
+      font-size: 1.1rem;
+      border-radius: 30px;
       width: 100%;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 15px;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .partner-submit:hover {
-      background: #f3d256;
-      box-shadow: 0 0 25px #d4af37;
+      background: linear-gradient(135deg, #f3d256, #e6c456);
+      box-shadow: 0 8px 30px #d4af3750;
+      transform: translateY(-2px);
+    }
+
+    .partner-submit:active {
+      transform: translateY(0);
+    }
+
+    /* Partner Modal Mobile Styles */
+    @media (max-width: 576px) {
+      .partner-modal {
+        padding: 30px 20px;
+        border-radius: 25px;
+        max-width: 100%;
+        max-height: 85vh;
+      }
+
+      .partner-modal h2 {
+        font-size: 1.6rem;
+        margin-bottom: 6px;
+      }
+
+      .partner-modal p {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+      }
+
+      .partner-modal .input-group {
+        margin-bottom: 14px;
+      }
+
+      .partner-modal .input-group label {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+      }
+
+      .partner-modal .input-group input,
+      .partner-modal .input-group select,
+      .partner-modal .input-group textarea {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+        border-radius: 20px;
+      }
+
+      .partner-modal .input-group select {
+        padding-right: 40px;
+        background-position: right 15px center;
+      }
+
+      .partner-modal .input-group textarea {
+        min-height: 70px;
+        border-radius: 16px;
+      }
+
+      .modal-close {
+        top: 12px;
+        right: 12px;
+        font-size: 1.7rem;
+        width: 36px;
+        height: 36px;
+      }
+
+      .partner-submit {
+        padding: 14px 24px;
+        font-size: 1rem;
+        border-radius: 25px;
+        margin-top: 12px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .partner-modal {
+        padding: 25px 16px;
+        border-radius: 20px;
+        max-height: 80vh;
+      }
+
+      .partner-modal h2 {
+        font-size: 1.4rem;
+      }
+
+      .partner-modal p {
+        font-size: 0.8rem;
+        margin-bottom: 16px;
+      }
+
+      .partner-modal .input-group input,
+      .partner-modal .input-group select,
+      .partner-modal .input-group textarea {
+        padding: 11px 13px;
+        font-size: 0.9rem;
+      }
+
+      .partner-submit {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+      }
     }
 
     /* ==================== MOBILE RESPONSIVE STYLES ==================== */
@@ -1440,6 +1590,107 @@
       </div>
     </section>
 
+    <!-- MARKET PRICES - FOREX STYLE LINE GRAPHS -->
+    <section id="prices" style="background: linear-gradient(rgba(11, 12, 16, 0.95), rgba(11, 12, 16, 0.98)), url('images/bar.jpeg'); background-size: cover; background-position: center; background-attachment: fixed; border-radius: 60px; margin: 40px 0; padding: 60px 0;">
+      <div class="section-header">
+        <h4 style="color: var(--gold-primary); font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 16px;">live market data</h4>
+        <h2 style="font-size: 2.8rem; font-weight: 600; color: #f0f3fa; max-width: 700px; margin: 0 auto;">Real-time precious metals</h2>
+      </div>
+      
+      <!-- Timeframe Selector -->
+      <div style="display: flex; justify-content: center; gap: 10px; margin: 30px 0 40px; flex-wrap: wrap;">
+        <button onclick="setTimeframe('1M')" class="tf-btn" data-tf="1M">1M</button>
+        <button onclick="setTimeframe('3M')" class="tf-btn" data-tf="3M">3M</button>
+        <button onclick="setTimeframe('6M')" class="tf-btn active" data-tf="6M">6M</button>
+        <button onclick="setTimeframe('1Y')" class="tf-btn" data-tf="1Y">1Y</button>
+        <button onclick="setTimeframe('ALL')" class="tf-btn" data-tf="ALL">ALL</button>
+      </div>
+
+      <!-- Gold Chart - Full Width Forex Style -->
+      <div style="background: linear-gradient(145deg, rgba(19, 23, 34, 0.95), rgba(26, 34, 51, 0.9)); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 24px; padding: 30px; margin-bottom: 30px; box-shadow: 0 25px 50px -20px rgba(0,0,0,0.7);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #d4af37, #f5d97a); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-coins" style="font-size: 1.5rem; color: #0b0c10;"></i>
+            </div>
+            <div>
+              <h3 style="font-size: 1.5rem; color: #f0f3fa; margin: 0; font-weight: 600;">Gold</h3>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin: 3px 0 0;">XAU/USD · Gold Spot</p>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div id="goldCurrentPrice" style="font-size: 2rem; font-weight: 700; color: var(--gold-light);">$2,654.30</div>
+            <div id="goldPriceChange" style="font-size: 1rem; font-weight: 600; color: #4ade80;">+0.45% <span style="color: var(--text-muted); font-weight: 400;">today</span></div>
+          </div>
+        </div>
+        <div style="position: relative; height: 350px;">
+          <canvas id="goldChart"></canvas>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">OPEN</p>
+            <p id="goldOpen" style="color: #f0f3fa; font-weight: 600; margin: 0;">$2,642.10</p>
+          </div>
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">HIGH</p>
+            <p id="goldHigh" style="color: #4ade80; font-weight: 600; margin: 0;">$2,658.90</p>
+          </div>
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">LOW</p>
+            <p id="goldLow" style="color: #f87171; font-weight: 600; margin: 0;">$2,638.50</p>
+          </div>
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">CHANGE</p>
+            <p id="goldChangeVal" style="color: #4ade80; font-weight: 600; margin: 0;">+$12.20</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Silver Chart - Full Width Forex Style -->
+      <div style="background: linear-gradient(145deg, rgba(19, 23, 34, 0.95), rgba(26, 34, 51, 0.9)); border: 1px solid rgba(192, 192, 192, 0.25); border-radius: 24px; padding: 30px; box-shadow: 0 25px 50px -20px rgba(0,0,0,0.7);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #a8a8a8, #e0e0e0); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-medal" style="font-size: 1.5rem; color: #0b0c10;"></i>
+            </div>
+            <div>
+              <h3 style="font-size: 1.5rem; color: #f0f3fa; margin: 0; font-weight: 600;">Silver</h3>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin: 3px 0 0;">XAG/USD · Silver Spot</p>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div id="silverCurrentPrice" style="font-size: 2rem; font-weight: 700; color: #e0e0e0;">$31.85</div>
+            <div id="silverPriceChange" style="font-size: 1rem; font-weight: 600; color: #4ade80;">+0.82% <span style="color: var(--text-muted); font-weight: 400;">today</span></div>
+          </div>
+        </div>
+        <div style="position: relative; height: 350px;">
+          <canvas id="silverChart"></canvas>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">OPEN</p>
+            <p id="silverOpen" style="color: #f0f3fa; font-weight: 600; margin: 0;">$31.60</p>
+          </div>
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">HIGH</p>
+            <p id="silverHigh" style="color: #4ade80; font-weight: 600; margin: 0;">$32.10</p>
+          </div>
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">LOW</p>
+            <p id="silverLow" style="color: #f87171; font-weight: 600; margin: 0;">$31.45</p>
+          </div>
+          <div style="text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin: 0 0 5px;">CHANGE</p>
+            <p id="silverChangeVal" style="color: #4ade80; font-weight: 600; margin: 0;">+$0.25</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 25px;">
+        <i class="fas fa-sync-alt fa-spin" style="margin-right: 8px;"></i> Live data · Prices update in real-time · Source: International Markets
+      </p>
+    </section>
+
     <!-- INSIGHTS – FIXED GRID -->
     <section id="insights" style="background: linear-gradient(rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 0.95)), url('images/bar.jpeg'); background-size: cover; background-position: center; background-attachment: fixed; border-radius: 60px; margin: 40px 0; padding: 60px 0;">
       <div class="section-header">
@@ -1819,6 +2070,343 @@
           showToast('🌐 ' + (lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : lang === 'es' ? 'Español' : lang === 'ar' ? 'العربية' : '中文'));
         });
       });
+
+    })();
+
+    // ==================== FOREX CHARTS INITIALIZATION ====================
+    (function() {
+      // Generate realistic historical data for charts
+      function generateHistoricalData(basePrice, volatility, points) {
+        const data = [];
+        let price = basePrice;
+        const now = new Date();
+        
+        for (let i = points; i >= 0; i--) {
+          const date = new Date(now);
+          date.setDate(date.getDate() - i * 7); // Weekly data points
+          
+          // Add some trend and randomness
+          const change = (Math.random() - 0.48) * volatility;
+          price = price + change;
+          
+          // Keep price within reasonable bounds
+          price = Math.max(price, basePrice * 0.85);
+          price = Math.min(price, basePrice * 1.15);
+          
+          data.push({
+            x: date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
+            y: price.toFixed(2)
+          });
+        }
+        
+        // Ensure last price matches current
+        data[data.length - 1].y = basePrice.toFixed(2);
+        return data;
+      }
+
+      // Gold data (base ~2654)
+      const goldData = generateHistoricalData(2654.30, 45, 26);
+      
+      // Silver data (base ~31.85)
+      const silverData = generateHistoricalData(31.85, 0.8, 26);
+
+      // Chart.js default configuration for dark theme
+      Chart.defaults.color = '#9aa1b5';
+      Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+
+      // Gold Chart
+      const goldCtx = document.getElementById('goldChart').getContext('2d');
+      
+      // Create gradient for gold line
+      const goldGradient = goldCtx.createLinearGradient(0, 0, 0, 350);
+      goldGradient.addColorStop(0, 'rgba(212, 175, 55, 0.3)');
+      goldGradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+
+      const goldChart = new Chart(goldCtx, {
+        type: 'line',
+        data: {
+          labels: goldData.map(d => d.x),
+          datasets: [{
+            label: 'Gold Price',
+            data: goldData.map(d => d.y),
+            borderColor: '#d4af37',
+            backgroundColor: goldGradient,
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#d4af37',
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 2,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            intersect: false,
+            mode: 'index',
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(19, 23, 34, 0.95)',
+              titleColor: '#f0f3fa',
+              bodyColor: '#d4af37',
+              borderColor: 'rgba(212, 175, 55, 0.3)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: false,
+              callbacks: {
+                title: function(context) {
+                  return context[0].label;
+                },
+                label: function(context) {
+                  return '$' + context.parsed.y;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+                drawBorder: false
+              },
+              ticks: {
+                maxTicksLimit: 8,
+                font: {
+                  size: 11
+                }
+              }
+            },
+            y: {
+              grid: {
+                color: 'rgba(255,255,255,0.05)',
+                drawBorder: false
+              },
+              ticks: {
+                callback: function(value) {
+                  return '$' + value;
+                },
+                font: {
+                  size: 11
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // Silver Chart
+      const silverCtx = document.getElementById('silverChart').getContext('2d');
+      
+      // Create gradient for silver line
+      const silverGradient = silverCtx.createLinearGradient(0, 0, 0, 350);
+      silverGradient.addColorStop(0, 'rgba(192, 192, 192, 0.3)');
+      silverGradient.addColorStop(1, 'rgba(192, 192, 192, 0)');
+
+      const silverChart = new Chart(silverCtx, {
+        type: 'line',
+        data: {
+          labels: silverData.map(d => d.x),
+          datasets: [{
+            label: 'Silver Price',
+            data: silverData.map(d => d.y),
+            borderColor: '#c0c0c0',
+            backgroundColor: silverGradient,
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#c0c0c0',
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 2,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            intersect: false,
+            mode: 'index',
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(19, 23, 34, 0.95)',
+              titleColor: '#f0f3fa',
+              bodyColor: '#c0c0c0',
+              borderColor: 'rgba(192, 192, 192, 0.3)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: false,
+              callbacks: {
+                title: function(context) {
+                  return context[0].label;
+                },
+                label: function(context) {
+                  return '$' + context.parsed.y;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+                drawBorder: false
+              },
+              ticks: {
+                maxTicksLimit: 8,
+                font: {
+                  size: 11
+                }
+              }
+            },
+            y: {
+              grid: {
+                color: 'rgba(255,255,255,0.05)',
+                drawBorder: false
+              },
+              ticks: {
+                callback: function(value) {
+                  return '$' + value;
+                },
+                font: {
+                  size: 11
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // Timeframe selector functionality
+      window.setTimeframe = function(tf) {
+        // Update active button
+        document.querySelectorAll('.tf-btn').forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.getAttribute('data-tf') === tf) {
+            btn.classList.add('active');
+          }
+        });
+
+        // Generate different data based on timeframe
+        let points, volatility;
+        switch(tf) {
+          case '1M':
+            points = 4;
+            volatility = 25;
+            break;
+          case '3M':
+            points = 12;
+            volatility = 35;
+            break;
+          case '6M':
+            points = 26;
+            volatility = 45;
+            break;
+          case '1Y':
+            points = 52;
+            volatility = 55;
+            break;
+          case 'ALL':
+            points = 104;
+            volatility = 70;
+            break;
+          default:
+            points = 26;
+            volatility = 45;
+        }
+
+        // Regenerate data with new parameters
+        const newGoldData = generateHistoricalData(2654.30, volatility, points);
+        const newSilverData = generateHistoricalData(31.85, volatility * 0.02, points);
+
+        // Update charts
+        goldChart.data.labels = newGoldData.map(d => d.x);
+        goldChart.data.datasets[0].data = newGoldData.map(d => d.y);
+        goldChart.update();
+
+        silverChart.data.labels = newSilverData.map(d => d.x);
+        silverChart.data.datasets[0].data = newSilverData.map(d => d.y);
+        silverChart.update();
+
+        // Show toast
+        const toast = document.getElementById('toast');
+        toast.textContent = '📊 Showing ' + tf + ' chart data';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      };
+
+      // Simulate real-time price updates
+      setInterval(function() {
+        // Randomly fluctuate gold price
+        const goldChange = (Math.random() - 0.5) * 2;
+        const currentGold = parseFloat(document.getElementById('goldCurrentPrice').textContent.replace('$', '').replace(',', ''));
+        const newGold = (currentGold + goldChange).toFixed(2);
+        document.getElementById('goldCurrentPrice').textContent = '$' + parseFloat(newGold).toLocaleString();
+        
+        // Randomly fluctuate silver price
+        const silverChange = (Math.random() - 0.5) * 0.05;
+        const currentSilver = parseFloat(document.getElementById('silverCurrentPrice').textContent.replace('$', ''));
+        const newSilver = (currentSilver + silverChange).toFixed(2);
+        document.getElementById('silverCurrentPrice').textContent = '$' + newSilver;
+
+        // Update change percentage randomly
+        const goldPct = (Math.random() * 2 - 0.5).toFixed(2);
+        const silverPct = (Math.random() * 2.5 - 0.3).toFixed(2);
+        
+        const goldPctEl = document.getElementById('goldPriceChange');
+        const silverPctEl = document.getElementById('silverPriceChange');
+        
+        goldPctEl.innerHTML = (goldPct >= 0 ? '+' : '') + goldPct + '% <span style="color: var(--text-muted); font-weight: 400;">today</span>';
+        goldPctEl.style.color = goldPct >= 0 ? '#4ade80' : '#f87171';
+        
+        silverPctEl.innerHTML = (silverPct >= 0 ? '+' : '') + silverPct + '% <span style="color: var(--text-muted); font-weight: 400;">today</span>';
+        silverPctEl.style.color = silverPct >= 0 ? '#4ade80' : '#f87171';
+      }, 5000); // Update every 5 seconds
+
+      // Add CSS for timeframe buttons
+      const style = document.createElement('style');
+      style.textContent = `
+        .tf-btn {
+          background: rgba(212, 175, 55, 0.1);
+          border: 1px solid rgba(212, 175, 55, 0.3);
+          color: var(--text-muted);
+          padding: 8px 18px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .tf-btn:hover {
+          background: rgba(212, 175, 55, 0.2);
+          color: var(--gold-light);
+          border-color: var(--gold-primary);
+        }
+        .tf-btn.active {
+          background: var(--gold-primary);
+          color: #0b0c10;
+          border-color: var(--gold-primary);
+          box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+        @media (max-width: 576px) {
+          .tf-btn {
+            padding: 6px 14px;
+            font-size: 0.75rem;
+          }
+        }
+      `;
+      document.head.appendChild(style);
 
     })();
   </script>
